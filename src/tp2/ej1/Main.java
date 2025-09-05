@@ -14,8 +14,8 @@ public class Main {
         listaLadosCuadrado.add(lado2);
         listaLadosCuadrado.add(lado3);
         listaLadosCuadrado.add(lado4);
-        for (int i = 0; i < listaLadosCuadrado.size(); i++){
-            System.out.println(listaLadosCuadrado.get(i));
+        for (Lado lado : listaLadosCuadrado) {
+            System.out.println(lado);
         }
         Cuadrado cuadrado = new Cuadrado(listaLadosCuadrado);
         System.out.println(cuadrado);
@@ -28,8 +28,8 @@ public class Main {
         listaLadosTriangulo.add(lado5);
         listaLadosTriangulo.add(lado6);
         listaLadosTriangulo.add(lado7);
-        Triangulo isoceles = new Triangulo(listaLadosTriangulo);
-        System.out.println(isoceles);
+        Triangulo isosceles = new Triangulo(listaLadosTriangulo);
+        System.out.println(isosceles);
 
         Circulo circulo = new Circulo(new Punto(0, 0), 1);
         System.out.println(circulo);
