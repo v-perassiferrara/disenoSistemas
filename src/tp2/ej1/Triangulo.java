@@ -1,4 +1,4 @@
-package Ejercicio1;
+package tp2.ej1;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
