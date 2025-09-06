@@ -36,7 +36,4 @@ public class Hangar {
         }
         return "El avión" + avion + "no está en el hangar indicado";
     }
-
-
-
-}
+    }

@@ -1,3 +1,3 @@
 # Diseño de Sistemas
 ---
-Repositorio de Valentino Perassi Ferrara
+Repositorio de Valentino Perassi Ferrara.
