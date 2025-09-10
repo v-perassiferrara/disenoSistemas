@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class Persona {
+    private Long id;
     private String nombre;
     private int numeroSeguridadSocial;
     private String direccion;

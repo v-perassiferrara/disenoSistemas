@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TipoAvion {
-
+    private Long id;
     private int numeroModelo;
     private int capacidad;
     private int peso;

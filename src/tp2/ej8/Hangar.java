@@ -13,6 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class Hangar {
+    private Long id;
     private int numero;
     private int capacidad;
     private String ubicacion;

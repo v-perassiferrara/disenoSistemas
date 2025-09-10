@@ -13,6 +13,7 @@ import java.util.Set;
 @ToString(exclude = "serviciosHechos")
 @EqualsAndHashCode(exclude = "serviciosHechos")
 public class Mecanico extends Persona {
+    private Long id;
     private String turno;
     private int salario;
     @Builder.Default

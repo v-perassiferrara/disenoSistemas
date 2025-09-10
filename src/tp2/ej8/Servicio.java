@@ -13,6 +13,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 public class Servicio {         //Único caso donde me vi obligado a hacer "clase intermedia"
+    private Long id;
     private Persona mecanico;
     private Avion avion;
     private Date fecha;

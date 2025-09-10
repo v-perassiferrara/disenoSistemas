@@ -11,6 +11,7 @@ import java.util.*;
 @ToString(exclude = "serviciosRecibidos")
 @EqualsAndHashCode(exclude = "serviciosRecibidos")
 public class Avion {
+    private Long id;
     private int matricula;
     private TipoAvion tipo;
     private Date fechaAdquisicion;  //del dueño actual

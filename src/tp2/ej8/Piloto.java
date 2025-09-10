@@ -14,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 public class Piloto extends Persona {
+    private Long id;
     private int numeroLicencia;
     private String restricciones;
     @Builder.Default
