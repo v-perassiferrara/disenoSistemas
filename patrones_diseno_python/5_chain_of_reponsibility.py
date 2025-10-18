@@ -1,5 +1,3 @@
-# Aprobadores (abstracto y concretos)
-
 from abc import ABC, abstractmethod
 from typing import Optional
 
@@ -10,11 +8,11 @@ class IAprobador(ABC):
         pass
 
     @abstractmethod
-    def get_next(self) -> Optional['IAprobador']:   # Este optional es una medida de seguridad por si todavía no seteamos el next
+    def get_next(self) -> Optional['IAprobador']:
         pass
 
     @abstractmethod
-    def solicitud_prestamo(self,monto: int) -> None:
+    def solicitud_prestamo(self, monto: int) -> None:
         pass
 
 
@@ -25,10 +23,10 @@ class EjecutivoDeCuenta(IAprobador):
     def get_next(self) -> Optional['IAprobador']:
         return self.next
 
-    def solicitud_prestamo(self,monto: int) -> None:
-        if monto <= 10000:
+    def solicitud_prestamo(self, monto: int) -> None:
+        if 0 < monto <= 10000:
             print("Lo manejo yo, ejecutivo de cuentas")
-        else:
+        elif self.next:  # Pasa al siguiente SOLO SI hay un siguiente
             self.next.solicitud_prestamo(monto)
 
     def set_next(self, aprobador: 'IAprobador') -> None:
@@ -45,7 +43,7 @@ class LiderTeamEjecutivo(IAprobador):
     def solicitud_prestamo(self, monto: int) -> None:
         if 10000 < monto <= 50000:
             print("Lo manejo yo, líder")
-        else:
+        elif self.next:  # Pasa al siguiente SOLO SI hay un siguiente
             self.next.solicitud_prestamo(monto)
 
     def set_next(self, aprobador: 'IAprobador') -> None:
@@ -62,7 +60,7 @@ class Gerente(IAprobador):
     def solicitud_prestamo(self, monto: int) -> None:
         if 50000 < monto <= 100000:
             print("Lo manejo yo, gerente")
-        else:
+        elif self.next:  # Pasa al siguiente SOLO SI hay un siguiente
             self.next.solicitud_prestamo(monto)
 
     def set_next(self, aprobador: 'IAprobador') -> None:
@@ -71,16 +69,21 @@ class Gerente(IAprobador):
 
 class Director(IAprobador):
     def __init__(self) -> None:
-        self.next: Optional[IAprobador] = None
+        self.next: Optional[IAprobador] = None  # No tendrá sucesor
 
     def get_next(self) -> Optional['IAprobador']:
         return self.next
 
     def solicitud_prestamo(self, monto: int) -> None:
-        if monto >= 100000:
+        if monto > 100000:
             print("Lo manejo yo, director")
-        else:
-            self.next.solicitud_prestamo(monto)
+
+        # VERSIÓN CORREGIDA:
+        # Se elimina el 'else'. Si el director no lo maneja,
+        # la cadena termina aquí de forma segura, igual que en el PDF.
+        #
+        # Una implementación más robusta incluso manejaría el 'else'
+        # imprimiendo "Solicitud rechazada" o similar.
 
     def set_next(self, aprobador: 'IAprobador') -> None:
         self.next = aprobador
@@ -89,21 +92,27 @@ class Director(IAprobador):
 # Main
 
 if __name__ == "__main__":
-    if __name__ == "__main__":
-        ejecutivo = EjecutivoDeCuenta()
-        lider = LiderTeamEjecutivo()
-        gerente = Gerente()
-        director = Director()
+    ejecutivo = EjecutivoDeCuenta()
+    lider = LiderTeamEjecutivo()
+    gerente = Gerente()
+    director = Director()
 
-        ejecutivo.set_next(lider)
-        lider.set_next(gerente)
-        gerente.set_next(director)
+    # Se arma la cadena
+    ejecutivo.set_next(lider)
+    lider.set_next(gerente)
+    gerente.set_next(director)
 
-        print("Préstamo de 5000")
-        ejecutivo.solicitud_prestamo(5000)
+    print("--- Préstamo de 5000 ---")
+    ejecutivo.solicitud_prestamo(5000)
 
-        print("Préstamo de 50000")
-        ejecutivo.solicitud_prestamo(50000)
+    print("\n--- Préstamo de 45000 ---")
+    ejecutivo.solicitud_prestamo(45000)
 
-        print("Préstamo de 500000")
-        ejecutivo.solicitud_prestamo(500000)
+    print("\n--- Préstamo de 85000 ---")
+    ejecutivo.solicitud_prestamo(85000)
+
+    print("\n--- Préstamo de 500000 ---")
+    ejecutivo.solicitud_prestamo(500000)
+
+    print("\n--- Préstamo de -100 (Prueba de error) ---")
+    ejecutivo.solicitud_prestamo(-100)  # Esto ahora no hará nada, en lugar de crashear
